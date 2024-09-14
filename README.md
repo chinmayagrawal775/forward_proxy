@@ -1,4 +1,11 @@
-# Forward Proxy
+# Forward Proxy Built using GO
+
+![Made with love in India](https://madewithlove.now.sh/in?heart=true&colorA=%232543d4&colorB=%23f58f00&template=for-the-badge)
+[![made-with-go](https://img.shields.io/badge/Made%20with-GO-1f425f.svg)](https://go.dev/)
+[![Open Source Love svg1](https://badges.frapsoft.com/os/v1/open-source.svg?v=103)](https://github.com/ellerbrock/open-source-badges/)
+
+
+## About Project 📄
 
 What is forward proxy?
 >
@@ -7,7 +14,10 @@ What is forward proxy?
 > A forward proxy is a type of server that acts as an intermediary between a client and the internet. When a client makes a request to access a website or online resource, the request is first sent to the forward proxy server. The proxy then forwards this request to the destination server, retrieves the response, and sends it back to the client.
 
 
-## Local Setup Guide
+## Prerequisites ⚙️
+- Go installed on your system. (Version `1.23.0`)
+
+## Local Setup Guide 🛠️
 
 ### Clone the repository
 ```
@@ -30,7 +40,7 @@ Above command will run the proxy server at below URL:
 By default it also starts the profiling server. You can access it at:
 > http://127.0.0.1:6060/debug/pprof
 
-### Test Proxy server
+### Test Proxy server 🧪
 Run the below commands in new terminal
 ```
 curl --proxy 127.0.0.1:6969 example.com
@@ -41,7 +51,7 @@ With the first commnad you will see the html output in your terminal.
 
 And with the second command you will see `Access to the site blocked!!` as `facebook.com` is a blocked site in proxy server. You can tweak it by modifying the `config/restricted-hosts.txt` file.
 
-## How to use it as actual proxy server
+## How to use it as actual proxy server 🌐 🌍
 Here i am giving the example of using your proxy server in [FireFox Browser](https://www.mozilla.org/en-US/firefox/). You can easily configure your firefox browser to use this forward proxy. Below are the steps to do that:
 
 - Open Firefox, go to settings.
@@ -53,4 +63,4 @@ Here i am giving the example of using your proxy server in [FireFox Browser](htt
 - do check the `Also use this proxy for HTTPS` checkbox, so that HTTPs URLs will also be proxied.
 - Click on `OK`
 
-Hurray 🎉🎉, Now you have cofigured the forward proxy in your firefox browser. All your request will now go through this proxy server. To verify check out the proxy server logs in terminal. You will find various requests logging there.
+Hurray 🎉 🚀, Now you have cofigured the forward proxy in your firefox browser. All your request will now go through this proxy server. To verify check out the proxy server logs in terminal. You will find various requests logging there.
