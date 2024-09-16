@@ -51,6 +51,19 @@ With the first commnad you will see the html output in your terminal.
 
 And with the second command you will see `Access to the site blocked!!` as `facebook.com` is a blocked site in proxy server. You can tweak it by modifying the `config/restricted-hosts.txt` file.
 
+## Build Project 🏗️
+You can use the Makefile to create executable binary with the following command:
+```
+make build
+```
+
+Or you can also simply run the following command also:
+```
+go build
+```
+
+Both of the above commands will create the executable binaries with the name `foraward_proxy`
+
 ## How to use it as actual proxy server 🌐 🌍
 Here i am giving the example of using your proxy server in [FireFox Browser](https://www.mozilla.org/en-US/firefox/). You can easily configure your firefox browser to use this forward proxy. Below are the steps to do that:
 
