@@ -1,17 +1,17 @@
-package pool
+package threadpool
 
 import (
 	"net"
 	"sync"
 )
 
-type Pool struct {
+type ThreadPool struct {
 	workQueue chan net.Conn
 	wg        sync.WaitGroup
 }
 
-func InitializeThredaPool(poolSize int, connectionHandler func(net.Conn)) *Pool {
-	pool := &Pool{
+func InitializeThreadPool(poolSize int, connectionHandler func(net.Conn)) *ThreadPool {
+	pool := &ThreadPool{
 		workQueue: make(chan net.Conn),
 	}
 
@@ -29,11 +29,11 @@ func InitializeThredaPool(poolSize int, connectionHandler func(net.Conn)) *Pool 
 	return pool
 }
 
-func (p *Pool) AddNewConnection(connection net.Conn) {
+func (p *ThreadPool) AddNewConnection(connection net.Conn) {
 	p.workQueue <- connection
 }
 
-func (p *Pool) Close() {
+func (p *ThreadPool) Close() {
 	close(p.workQueue)
 	p.wg.Wait()
 }

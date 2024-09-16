@@ -8,8 +8,8 @@ import (
 	"syscall"
 
 	"github.com/chinmayagrawal775/forward_proxy/config"
-	"github.com/chinmayagrawal775/forward_proxy/pkg/pool"
 	"github.com/chinmayagrawal775/forward_proxy/pkg/proxy"
+	"github.com/chinmayagrawal775/forward_proxy/pkg/threadpool"
 	"github.com/chinmayagrawal775/forward_proxy/server"
 	"github.com/chinmayagrawal775/forward_proxy/utils"
 )
@@ -29,7 +29,7 @@ func main() {
 	proxyServer := server.InitProxyServer()
 
 	// threadpooling: Number of connections capped at 50
-	pool := pool.InitializeThredaPool(50, proxy.ConnectionHandler)
+	threadpool := threadpool.InitializeThreadPool(50, proxy.ConnectionHandler)
 
 	shutdownSignal := make(chan os.Signal, 1) // channel for singanlling the server closing
 	loopExitSignal := make(chan bool, 1)      // channel to notify to break out from loop
@@ -40,7 +40,7 @@ func main() {
 		<-shutdownSignal
 		log.Println("Closing Proxy Server.")
 		proxyServer.ShutdownServer()
-		pool.Close()
+		threadpool.Close()
 		loopExitSignal <- true // signalling 'loopExitSignal' channel to break out of the loop
 		log.Println("Server Shutdown Gracefully. Bye..!!")
 		os.Exit(0)
@@ -53,7 +53,7 @@ func main() {
 			break
 		}
 
-		// go handleConnection(conn) // this fork new thread each time a new connection came. Will spike the goroutines in case of huge traffic.
-		pool.AddNewConnection(conn)
+		// go proxy.ConnectionHandler(conn) // this fork new thread each time a new connection came. Will spike the goroutines in case of huge traffic.
+		threadpool.AddNewConnection(conn)
 	}
 }
